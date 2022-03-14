@@ -26,6 +26,7 @@ resizeWidth is useful if you have very large images that will be too slow to dis
 It can be useful to compile into an executable, so then you can have your .exr or .hdr images always open with this program.
 
 `pip install pyinstaller`
+
 `pyinstaller HDR_Viewer_PyPlot.spec --noconfirm`
 
 This will package into dist/HDR_Viewer_PyPlot. Point your HDR images (i.e., right click the file, "Open with" > "Choose another app", and select dist/HDR_Viewer_PyPlot/HDR_Viewer_PyPlot.exe
