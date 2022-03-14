@@ -1,10 +1,12 @@
 ## HDR_Viewer_PyPlot
 A simple high dynamic range (HDR) image viewer using matplotlib.pyplot for displaying and imageio for reading/writing. It's all in python, easy to extend. 
 
+![alt text](https://github.com/chalmersgit/HDR_Viewer_PyPlot/blob/Master/HDR_Viewer_PyPlot_Example.png?raw=true)
+
 ## Features
 - Displays HDR images (e.g., .exr and .hdr images). I use imageio for reading images, so anything imageio supports can be displayed.
 - Toggle gamma correction (g)
-- Adjust exposure (scroll)
+- Adjust exposure (scroll). Hold shift to change the exposure faster.
 - See pixel values under the mouse cursor
 - See general statistics (original resolution, min/max pixel value, spherical mean, spherical standard deviation, contrast)
 - Toggle between a diffusely convolved image and the original image (d). Make sure you do this for HDRI's intended for image-based lighting. Note that the first time you press d, it will take a few seconds to compute the diffuse image.
