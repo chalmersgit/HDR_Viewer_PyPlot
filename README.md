@@ -18,6 +18,7 @@ The run:
 python [string filepath] optional: [int resizeWidth]
 
 For example:
+
 `python ./images/grace-new.exr 512`
 
 resizeWidth is useful if you have very large images that will be too slow to display.
