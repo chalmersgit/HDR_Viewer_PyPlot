@@ -4,7 +4,6 @@ block_cipher = None
 
 
 a = Analysis(['HDR_Viewer_PyPlot.py'],
-             pathex=['Z:\\Share\\HDR_Viewer_PyPlot'],
              binaries=[],
              datas=[],
              hiddenimports=[],

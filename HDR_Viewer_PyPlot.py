@@ -144,7 +144,7 @@ def getImgStats(img):
 	mean,std = spherical_mean_and_std(img)
 	return minPxl, maxPxl, mean, std
 
-def displayImage(img, windowWidth=8, resizeWidth=512):
+def displayImage(img, titleName='', windowWidth=8, resizeWidth=512):
 	displayString = ""
 	shiftDown = False
 	showStats = True
@@ -166,7 +166,7 @@ def displayImage(img, windowWidth=8, resizeWidth=512):
 	figWidth = windowWidth
 	figHeight = int(figWidth/aspectRatio)
 
-	fig = plt.figure(num='HDR Viewer', figsize=(figWidth,figHeight), frameon=False)
+	fig = plt.figure(num='HDR Viewer: '+titleName, figsize=(figWidth,figHeight), frameon=False)
 	ax = fig.add_axes([0, 0, 1, 1])
 	limg = plt.imshow(np.clip(img*scaleFactor*255,0,255).astype(np.uint8))
 	ax.axis('off')
@@ -390,6 +390,6 @@ if __name__ == "__main__":
 
 	#img = img/np.max(img)
 
-	displayImage(img, resizeWidth=resizeWidth)
+	displayImage(img, titleName=fn, resizeWidth=resizeWidth)
 
 	print('Exit')
