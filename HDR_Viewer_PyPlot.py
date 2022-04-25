@@ -150,6 +150,8 @@ def displayImage(img, titleName='', windowWidth=8, resizeWidth=512):
 	showStats = True
 	gamma = 2.2 # 1.0
 	scaleFactor = 1.0
+
+
 	contrast = getContrast(img)
 
 	numrows, numcols, numdims = img.shape
@@ -178,6 +180,7 @@ def displayImage(img, titleName='', windowWidth=8, resizeWidth=512):
 						   fc=(1., 1.0, 1.0, 0.5),))
 
 	minPxl, maxPxl, mean, std = getImgStats(img)
+	scaleFactor = 0.2/mean
 
 	def format_coord(x, y):
 		nonlocal gamma
