@@ -13,7 +13,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 '''
 
 import sys,os
-import imageio as im
+import imageio.v2 as im
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
@@ -144,7 +144,7 @@ def getImgStats(img):
 	mean,std = spherical_mean_and_std(img)
 	return minPxl, maxPxl, mean, std
 
-def displayImage(img, titleName='', windowWidth=8, resizeWidth=512):
+def displayImage(img, titleName='', windowWidth=8, displayWidth=None):
 	displayString = ""
 	shiftDown = False
 	showStats = True
@@ -156,9 +156,11 @@ def displayImage(img, titleName='', windowWidth=8, resizeWidth=512):
 
 	numrows, numcols, numdims = img.shape
 
-	#print('Source shape:',img.shape)
-	img = cv2.resize(img, (resizeWidth, int(resizeWidth/(img.shape[1]/img.shape[0]))), interpolation=cv2.INTER_AREA)
-	#print('Display shape', img.shape)
+	print('Source shape:', img.shape)
+	if displayWidth != None:
+		img = cv2.resize(img, (displayWidth, int(displayWidth/(img.shape[1]/img.shape[0]))), interpolation=cv2.INTER_AREA)
+	displayWidth = img.shape[1]
+	print('Display shape', img.shape)
 	
 	img_edited = np.copy(img)
 	img_diffuse = None
@@ -173,7 +175,7 @@ def displayImage(img, titleName='', windowWidth=8, resizeWidth=512):
 	limg = plt.imshow(np.clip(img*scaleFactor*255,0,255).astype(np.uint8))
 	ax.axis('off')
 
-	ui_text = ax.text(resizeWidth*0.01, resizeWidth*0.01, displayString, size=10, rotation=0.,
+	ui_text = ax.text(displayWidth*0.01, displayWidth*0.01, displayString, size=10, rotation=0.,
 				 ha="left", va="top",
 				 bbox=dict(boxstyle="round",
 						   ec=(0.5, 0.5, 0.5, 0.5),
@@ -224,7 +226,7 @@ def displayImage(img, titleName='', windowWidth=8, resizeWidth=512):
 	ax.format_coord = format_coord
 	
 	#print(format_coord)
-	#ax.text(resizeWidth//2, resizeWidth//4, format_coord, size=10, rotation=0.,
+	#ax.text(displayWidth//2, displayWidth//4, format_coord, size=10, rotation=0.,
 	#			 ha="center", va="center",
 	#			 bbox=dict(boxstyle="round",
 	#					   ec=(1., 0.5, 0.5),
@@ -371,7 +373,7 @@ if __name__ == "__main__":
 	#sys.argv = ['', './images/grace-new.exr']
 	#sys.argv = ['', './images/grace-new.exr', 512]
 	if len(sys.argv)<2:
-		print("Missing args: [string filepath] optional: [int resizeWidth]")
+		print("Missing args: [string filepath] optional: [int displayWidth]")
 		sys.exit()
 
 	fn = sys.argv[1]
@@ -383,16 +385,15 @@ if __name__ == "__main__":
 	else:
 		img = img[:,:,:3]
 
-
-	resizeWidth = 512
+	displayWidth = None
 	try:
 		if len(sys.argv)>2:
-			resizeWidth = int(sys.argv[2])
+			displayWidth = int(sys.argv[2])
 	except:
 		pass
 
 	#img = img/np.max(img)
 
-	displayImage(img, titleName=fn, resizeWidth=resizeWidth)
+	displayImage(img, titleName=fn, displayWidth=displayWidth)
 
 	print('Exit')
